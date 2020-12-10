@@ -1,0 +1,50 @@
+<form (submit)='checkOtp(otpControl.value)'>
+
+  <span>
+    Enter an OTP code you<br/>
+    received via SMS
+  </span>
+
+  <div class='form-control'>
+
+    <label>OTP code</label>
+
+    <input
+    type='text'
+    autocomplete='off'
+    [formControl]='otpControl' />
+
+    <span *ngIf='otpControl.hasError("required")'>OTP is required</span>
+
+  </div>
+
+  <div class='countdown'>
+
+    <span *ngIf='countdown$'>OTP code is valid for next {{countdown$ | async}} seconds</span>
+    <span *ngIf='!countdown$'>
+      Click <a (click)='restartCountdown()'>here</a> to receive new OTP code
+    </span>
+
+  </div>
+
+  <span
+  *ngIf='errorMsg'
+  class='error-msg'>
+    {{errorMsg}}
+  </span>
+
+  <button
+  type='submit'
+  [class.pending]='pending'
+  [disabled]='pending'>
+
+    <div
+    *ngIf='pending'
+    class='spinner'>
+    </div>
+
+    Confirm
+  
+  </button>
+
+</form>

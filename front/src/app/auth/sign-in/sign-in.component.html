@@ -1,0 +1,66 @@
+<form
+[formGroup]='form'
+(submit)='signIn(form.value)'>
+
+  <span>
+    Enter the credentials you<br/>
+    used to register in the service
+  </span>
+
+  <div class='form-control'>
+
+    <label>EMAIL</label>
+
+    <input
+    autofocus
+    type='email'
+    autocomplete='email'
+    formControlName='email' />
+
+    <span *ngIf='form.getError("email", "email")'>Invalid email</span>
+    <span *ngIf='form.getError("required", "email")'>Email is required</span>
+
+  </div>
+
+  <div class='form-control'>
+
+    <label>PASSWORD</label>
+
+    <input
+    type='password'
+    autocomplete='current-password'
+    formControlName='password' />
+
+    <span *ngIf='form.getError("required", "password")'>Password is required</span>
+    <span *ngIf='form.getError("maxlength", "password")'>Password is too long</span>
+    <span *ngIf='form.getError("minlength", "password")'>Password is too short</span>
+
+  </div>
+
+  <a
+  class='forgot-password'
+  href='#'>
+    Forgot your password?
+  </a>
+
+  <button
+  type='submit'
+  [class.progress]='pending'
+  [disabled]='pending'>
+
+    <div
+    *ngIf='pending'
+    class='spinner'>
+    </div>
+
+    LOG IN
+
+  </button>
+
+  <span
+  *ngIf='errorMsg'
+  class='error-msg'>
+    {{errorMsg}}
+  </span>
+
+</form>
